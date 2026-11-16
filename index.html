@@ -22,10 +22,10 @@
       </div>
 
       <div class="flex items-center gap-3">
-        <button onclick="resetDemo()" class="text-xs text-slate-400 hover:text-slate-200 px-3 py-2 rounded-lg border border-slate-800 hover:bg-slate-800/60 transition">
-          Resetar Demo
+        <button onclick="resetDemo()" class="text-xs text-slate-400 hover:text-slate-200 px-3 py-2 rounded-lg border border-slate-800 hover:bg-slate-800/60 transition cursor-pointer">
+          Restaurar Base
         </button>
-        <button onclick="openNewModal()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-600/20 transition">
+        <button onclick="openNewModal()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-600/20 transition cursor-pointer">
           <i data-lucide="plus" class="w-4 h-4"></i>
           Novo Cliente na Esteira
         </button>
@@ -57,27 +57,27 @@
     <form onsubmit="addClient(event)" class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-bold text-white">Adicionar Cliente na Esteira</h3>
-        <button type="button" onclick="closeNewModal()" class="text-slate-400 hover:text-white">
+        <button type="button" onclick="closeNewModal()" class="text-slate-400 hover:text-white cursor-pointer">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
       <div>
-        <label class="text-xs text-slate-400 block mb-1">Nome do Cliente / Empresa *</label>
-        <input id="new-name" type="text" required placeholder="Ex: Supermercados União" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
+        <label class="text-xs text-slate-400 block mb-1">Nome do Veículo / Empresa *</label>
+        <input id="new-name" type="text" required placeholder="Ex: Ativa" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="text-xs text-slate-400 block mb-1">Responsável Técnico</label>
+          <label class="text-xs text-slate-400 block mb-1">Responsável Comercial</label>
           <input id="new-resp" type="text" value="Nicolly" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
         </div>
         <div>
           <label class="text-xs text-slate-400 block mb-1">Meta de Go-Live</label>
-          <input id="new-golive" type="text" placeholder="Ex: 15/12/2026" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
+          <input id="new-golive" type="text" placeholder="Ex: 30/11/2026" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
         </div>
       </div>
       <div class="pt-2 flex justify-end gap-2">
-        <button type="button" onclick="closeNewModal()" class="px-4 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-800">Cancelar</button>
-        <button type="submit" class="px-4 py-2 rounded-lg text-xs font-medium bg-indigo-600 hover:bg-indigo-500 text-white">Iniciar na Estação 1</button>
+        <button type="button" onclick="closeNewModal()" class="px-4 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-800 cursor-pointer">Cancelar</button>
+        <button type="submit" class="px-4 py-2 rounded-lg text-xs font-medium bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer">Iniciar na Estação 1</button>
       </div>
     </form>
   </div>
@@ -117,64 +117,160 @@
 
     const INITIAL_CLIENTS = [
       {
-        id: "1",
-        name: "Grupo Horizonte Logística",
-        responsible: "Nicolly",
+        id: "2",
+        name: "Ativa (Mais Canal Mídias)",
+        responsible: "Angélica Machado",
+        currentStage: 4,
+        status: "em_dia",
+        daysInStage: 2,
+        goLiveTarget: "30/11/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "01/11/2026", event: "Entrada na esteira (Inventário Set/26)" }]
+      },
+      {
+        id: "4",
+        name: "BR Outdoor (Blue Media)",
+        responsible: "Kim Soave",
+        currentStage: 3,
+        status: "em_dia",
+        daysInStage: 3,
+        goLiveTarget: "05/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "02/11/2026", event: "Iniciado setup técnico" }]
+      },
+      {
+        id: "5",
+        name: "Divulcart (MSC Propaganda)",
+        responsible: "Rildo Gomes",
+        currentStage: 2,
+        status: "em_dia",
+        daysInStage: 1,
+        goLiveTarget: "10/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "04/11/2026", event: "Aguardando envio de insumos" }]
+      },
+      {
+        id: "6",
+        name: "Even OOH (Even Marketing)",
+        responsible: "Vinícius Vicentin",
         currentStage: 3,
         status: "em_dia",
         daysInStage: 2,
+        goLiveTarget: "02/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "03/11/2026", event: "Carga Out/26 em andamento" }]
+      },
+      {
+        id: "8",
+        name: "Interplan Mídia",
+        responsible: "Alexander Rodrigues",
+        currentStage: 4,
+        status: "em_dia",
+        daysInStage: 1,
         goLiveTarget: "28/11/2026",
         blockerReason: "",
         checklists: createChecklists(),
-        logs: [
-          { date: "08/11/2026", event: "Entrada na esteira (Handoff concluído)" },
-          { date: "10/11/2026", event: "Kickoff realizado com gestores" },
-          { date: "14/11/2026", event: "Insumos validados → Avançou para Setup" },
-        ],
+        logs: [{ date: "05/11/2026", event: "Treinamento agendado" }]
       },
       {
-        id: "2",
-        name: "Rede Varejo Express",
-        responsible: "Nicolly",
-        currentStage: 2,
+        id: "9",
+        name: "J.Silva OOH (J.Silva Painéis)",
+        responsible: "Nádia Cristina",
+        currentStage: 1,
         status: "aguardando_cliente",
-        daysInStage: 6,
-        goLiveTarget: "04/12/2026",
-        blockerReason: "Aguardando envio das credenciais de API pelo TI do cliente.",
+        daysInStage: 5,
+        goLiveTarget: "15/12/2026",
+        blockerReason: "Aguardando validação de escopo comercial (Em Curso).",
         checklists: createChecklists(),
-        logs: [
-          { date: "06/11/2026", event: "Entrada na esteira" },
-          { date: "10/11/2026", event: "Kickoff concluído → Iniciada Coleta" },
-        ],
+        logs: [{ date: "06/11/2026", event: "Kickoff iniciado - Em Curso" }]
       },
       {
-        id: "3",
-        name: "Clínica Vida & Saúde",
-        responsible: "Marcos",
-        currentStage: 4,
-        status: "travado",
-        daysInStage: 5,
-        goLiveTarget: "22/11/2026",
-        blockerReason: "Ajuste pendente na regra de importação solicitada na homologação.",
+        id: "11",
+        name: "LigaDOOH (DOOH Marketingplace)",
+        responsible: "Ana Luiza Holtermann",
+        currentStage: 5,
+        status: "em_dia",
+        daysInStage: 1,
+        goLiveTarget: "20/11/2026",
+        blockerReason: "",
         checklists: createChecklists(),
-        logs: [
-          { date: "01/11/2026", event: "Entrada na esteira" },
-          { date: "07/11/2026", event: "Setup finalizado" },
-          { date: "11/11/2026", event: "Treinamento iniciado" },
-        ],
+        logs: [{ date: "07/11/2026", event: "Virada Go-Live realizada" }]
       },
+      {
+        id: "13",
+        name: "Nova OOH",
+        responsible: "Rafael Seiler",
+        currentStage: 2,
+        status: "em_dia",
+        daysInStage: 2,
+        goLiveTarget: "08/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "08/11/2026", event: "Fase de Coleta" }]
+      },
+      {
+        id: "14",
+        name: "Out Midia Publicidade",
+        responsible: "Igor Lazaroni",
+        currentStage: 3,
+        status: "em_dia",
+        daysInStage: 2,
+        goLiveTarget: "04/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "09/11/2026", event: "Setup em andamento" }]
+      },
+      {
+        id: "18",
+        name: "Publicar Mídia Exterior",
+        responsible: "Giovani Gaio",
+        currentStage: 4,
+        status: "em_dia",
+        daysInStage: 1,
+        goLiveTarget: "01/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "10/11/2026", event: "Homologação e Treinamento" }]
+      },
+      {
+        id: "21",
+        name: "Ultramídia Painéis",
+        responsible: "William Santoro",
+        currentStage: 5,
+        status: "em_dia",
+        daysInStage: 1,
+        goLiveTarget: "18/11/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "11/11/2026", event: "Operação assistida / Go-Live" }]
+      },
+      {
+        id: "22",
+        name: "Vê Mais (Junkes & Borba)",
+        responsible: "Tathiane Schmitz",
+        currentStage: 3,
+        status: "em_dia",
+        daysInStage: 2,
+        goLiveTarget: "03/12/2026",
+        blockerReason: "",
+        checklists: createChecklists(),
+        logs: [{ date: "12/11/2026", event: "Configuração de inventário" }]
+      }
     ];
 
-    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v1")) || INITIAL_CLIENTS;
+    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v2")) || INITIAL_CLIENTS;
     let selectedClientId = null;
 
     function save() {
-      localStorage.setItem("client_onboarding_html_v1", JSON.stringify(clients));
+      localStorage.setItem("client_onboarding_html_v2", JSON.stringify(clients));
       render();
     }
 
     function render() {
-      // KPIs
       const total = clients.length;
       const blocked = clients.filter(c => c.status !== "em_dia").length;
       const avg = total ? (clients.reduce((a, c) => a + c.daysInStage, 0) / total).toFixed(1) : "0";
@@ -204,7 +300,6 @@
         </div>
       `;
 
-      // Esteiras
       document.getElementById("tracks-container").innerHTML = clients.map(client => {
         const st = STATUS_CONFIG[client.status];
         const stageMeta = STAGES[client.currentStage];
@@ -221,7 +316,7 @@
                 <div>
                   <h3 class="text-base font-bold text-white">${client.name}</h3>
                   <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 mt-0.5">
-                    <span>Resp.: ${client.responsible}</span>
+                    <span>Resp. Com.: ${client.responsible}</span>
                     <span>•</span>
                     <span>Meta Go-Live: <strong class="text-slate-200">${client.goLiveTarget}</strong></span>
                   </div>
@@ -270,8 +365,8 @@
                 ${client.blockerReason ? `<span class="text-amber-300"><strong>Motivo:</strong> ${client.blockerReason}</span>` : "Fluxo operando normalmente na estação atual."}
               </div>
               <div class="flex items-center gap-2">
-                <button ${client.currentStage === 0 ? "disabled" : ""} onclick="moveStage('${client.id}', -1)" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-slate-200 transition">← Voltar</button>
-                <button ${client.currentStage === STAGES.length - 1 ? "disabled" : ""} onclick="moveStage('${client.id}', 1)" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 text-white font-medium transition">Avançar Estação →</button>
+                <button ${client.currentStage === 0 ? "disabled" : ""} onclick="moveStage('${client.id}', -1)" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 text-slate-200 transition cursor-pointer">← Voltar</button>
+                <button ${client.currentStage === STAGES.length - 1 ? "disabled" : ""} onclick="moveStage('${client.id}', 1)" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 text-white font-medium transition cursor-pointer">Avançar Estação →</button>
               </div>
             </div>
           </div>
@@ -321,16 +416,16 @@
           <div>
             <span class="text-xs uppercase tracking-wider text-indigo-400 font-semibold">Estação Atual: ${STAGES[c.currentStage].title}</span>
             <h2 class="text-xl font-bold text-white mt-0.5">${c.name}</h2>
-            <p class="text-xs text-slate-400 mt-1">Responsável: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
+            <p class="text-xs text-slate-400 mt-1">Responsável Comercial: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
           </div>
-          <button onclick="closeDrawer()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">✕</button>
+          <button onclick="closeDrawer()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">✕</button>
         </div>
 
         <div class="space-y-3">
           <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Status na Estação</label>
           <div class="grid grid-cols-3 gap-2">
             ${Object.entries(STATUS_CONFIG).map(([key, cfg]) => `
-              <button onclick="updateStatus('${c.id}', '${key}')" class="text-xs py-2 px-2 rounded-lg border font-medium transition ${c.status === key ? cfg.badge : "bg-slate-800/60 border-slate-700 text-slate-400"}">
+              <button onclick="updateStatus('${c.id}', '${key}')" class="text-xs py-2 px-2 rounded-lg border font-medium transition cursor-pointer ${c.status === key ? cfg.badge : "bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200"}">
                 ${cfg.label}
               </button>
             `).join("")}
@@ -338,7 +433,7 @@
           ${c.status !== "em_dia" ? `
             <div>
               <label class="text-xs text-slate-400 block mb-1">Motivo da pendência / bloqueio:</label>
-              <input type="text" value="${c.blockerReason || ""}" onchange="updateReason('${c.id}', this.value)" placeholder="Descreva o motivo..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white" />
+              <input type="text" value="${c.blockerReason || ""}" onchange="updateReason('${c.id}', this.value)" placeholder="Descreva o motivo..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500" />
             </div>
           ` : ""}
         </div>
@@ -347,7 +442,7 @@
           <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Checklist — ${STAGES[c.currentStage].title}</h3>
           <div class="space-y-2">
             ${list.map(item => `
-              <button onclick="toggleCheck('${c.id}', ${c.currentStage}, '${item.id}')" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-left">
+              <button onclick="toggleCheck('${c.id}', ${c.currentStage}, '${item.id}')" class="w-full flex items-center gap-3 p-3 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 text-left transition cursor-pointer">
                 <span class="text-sm ${item.done ? "text-emerald-400" : "text-slate-500"}">${item.done ? "☑" : "☐"}</span>
                 <span class="text-sm ${item.done ? "line-through text-slate-500" : "text-slate-200"}">${item.text}</span>
               </button>
@@ -369,8 +464,8 @@
         </div>
 
         <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
-          <button onclick="deleteClient('${c.id}')" class="text-xs text-rose-400 hover:text-rose-300">Remover cliente</button>
-          <button onclick="closeDrawer()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium px-4 py-2 rounded-lg">Fechar</button>
+          <button onclick="deleteClient('${c.id}')" class="text-xs text-rose-400 hover:text-rose-300 cursor-pointer">Remover cliente</button>
+          <button onclick="closeDrawer()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium px-4 py-2 rounded-lg cursor-pointer">Fechar</button>
         </div>
       `;
     }
@@ -427,7 +522,7 @@
     }
 
     function resetDemo() {
-      localStorage.removeItem("client_onboarding_html_v1");
+      localStorage.removeItem("client_onboarding_html_v2");
       clients = JSON.parse(JSON.stringify(INITIAL_CLIENTS));
       closeDrawer();
       render();
