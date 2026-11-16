@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel de Operações • Implantação e Onboarding</title>
+  <title>Esteira de Onboarding & Implantação</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen pb-24">
-  <!-- Navbar Corporativa -->
-  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-20">
+<body class="bg-black text-zinc-100 font-sans min-h-screen pb-24">
+  <!-- Navbar -->
+  <header class="border-b border-zinc-800 bg-zinc-900/90 backdrop-blur sticky top-0 z-20">
     <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
-          <i data-lucide="layers" class="w-5 h-5"></i>
+        <div class="p-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-300">
+          <i data-lucide="factory" class="w-5 h-5"></i>
         </div>
         <div>
-          <h1 class="text-sm font-bold tracking-wide text-slate-100 uppercase">Implantação & Onboarding OOH/DOOH</h1>
-          <p class="text-xs text-slate-400">Painel de Controle Corporativo</p>
+          <h1 class="text-base font-bold tracking-tight text-white">Esteira de Onboarding & Implantação</h1>
+          <p class="text-xs text-zinc-400">Linha de produção de clientes • Com Assistente Gemini</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5">
-        <button onclick="resetDemo()" class="text-xs text-slate-300 hover:text-white px-3 py-2 rounded-lg border border-slate-800 hover:bg-slate-800 transition cursor-pointer">
+      <div class="flex items-center gap-3">
+        <button onclick="resetDemo()" class="text-xs text-zinc-400 hover:text-zinc-200 px-3 py-2 rounded-lg border border-zinc-800 hover:bg-zinc-800 transition cursor-pointer">
           Restaurar Base
         </button>
-        <button onclick="openNewModal()" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-medium px-3.5 py-2 rounded-lg transition cursor-pointer shadow-sm">
+        <button onclick="openNewModal()" class="flex items-center gap-2 bg-zinc-100 hover:bg-white text-zinc-900 text-xs font-semibold px-4 py-2 rounded-lg shadow transition cursor-pointer">
           <i data-lucide="plus" class="w-4 h-4"></i>
           Novo Cliente
         </button>
@@ -40,16 +40,16 @@
     <!-- Lista de Esteiras -->
     <section class="space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-4">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-          <i data-lucide="activity" class="w-4 h-4 text-slate-400"></i>
-          Fluxo Operacional Ativo
+        <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-zinc-400"></i>
+          Linha de Montagem Ativa
         </h2>
         <div class="flex items-center gap-2">
-          <button onclick="askAIQuick('Me dê um resumo executivo da esteira hoje para eu enviar ao meu gestor.')" class="text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
-            <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i> Resumo para Gestão
+          <button onclick="askAIQuick('Me dê um resumo executivo da esteira hoje para eu enviar ao meu gestor.')" class="text-xs bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-zinc-400"></i> Resumir para Gestor
           </button>
-          <button onclick="askAIQuick('Analise todos os clientes da base e me diga quem está travado ou com risco de atraso no SLA.')" class="text-xs bg-slate-900 hover:bg-slate-800 text-amber-300/90 border border-slate-800 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
-            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-400"></i> Auditoria de Gargalos
+          <button onclick="askAIQuick('Analise todos os clientes da base e me diga quem está travado ou com risco de atraso no SLA.')" class="text-xs bg-zinc-900 hover:bg-zinc-800 text-amber-300 border border-zinc-800 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-400"></i> Analisar Gargalos
           </button>
         </div>
       </div>
@@ -57,84 +57,84 @@
     </section>
   </main>
 
-  <!-- Botão Flutuante do Assistente Executivo -->
+  <!-- Botão Flutuante do Chat -->
   <div class="fixed bottom-6 right-6 z-30">
-    <button onclick="toggleChat()" class="bg-slate-800 hover:bg-slate-700 text-slate-100 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 border border-slate-700 transition cursor-pointer">
-      <i data-lucide="cpu" class="w-4 h-4 text-slate-300"></i>
-      <span class="text-xs font-semibold tracking-wide">Assistente Operacional</span>
+    <button onclick="toggleChat()" class="bg-zinc-900 hover:bg-zinc-800 text-zinc-100 p-4 rounded-full shadow-2xl flex items-center justify-center gap-2 border border-zinc-700 transition transform hover:scale-105 cursor-pointer">
+      <i data-lucide="bot" class="w-5 h-5 text-zinc-300"></i>
+      <span class="text-xs font-semibold pr-2 hidden sm:inline">Assistente IA</span>
     </button>
   </div>
 
-  <!-- Janela do Chat Corporativo -->
-  <div id="chat-window" class="hidden fixed bottom-24 right-6 w-[420px] max-w-[92vw] bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-40 flex flex-col overflow-hidden">
-    <div class="bg-slate-950 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-      <div class="flex items-center gap-2 text-slate-200 font-semibold text-xs uppercase tracking-wider">
-        <i data-lucide="terminal" class="w-4 h-4 text-slate-400"></i> Assistente de Inteligência Interna
+  <!-- Janela do Chat Flutuante -->
+  <div id="chat-window" class="hidden fixed bottom-24 right-6 w-[420px] max-w-[92vw] bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl z-40 flex flex-col overflow-hidden">
+    <div class="bg-zinc-950 px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-zinc-200 font-bold text-xs">
+        <i data-lucide="bot" class="w-4 h-4 text-zinc-400"></i> Assistente Gemini IA
       </div>
-      <div class="flex items-center gap-1">
-        <button onclick="toggleApiConfig()" title="Configurar Chave API" class="text-slate-400 hover:text-white p-1 rounded cursor-pointer">
-          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+      <div class="flex items-center gap-2">
+        <button onclick="toggleApiConfig()" title="Configurar Chave API" class="text-zinc-400 hover:text-white p-1 rounded cursor-pointer">
+          <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
-        <button onclick="toggleChat()" class="text-slate-400 hover:text-white p-1 rounded cursor-pointer">
+        <button onclick="toggleChat()" class="text-zinc-400 hover:text-white p-1 rounded cursor-pointer">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
     </div>
 
     <!-- Painel de Configuração da Chave API -->
-    <div id="api-config-box" class="hidden bg-slate-950 p-3 border-b border-slate-800 space-y-2">
-      <p class="text-[11px] text-slate-400">
-        Insira sua <strong>API Key do Google AI Studio</strong> (salva localmente):
+    <div id="api-config-box" class="hidden bg-zinc-950 p-3.5 border-b border-zinc-800 space-y-2">
+      <p class="text-[11px] text-zinc-400">
+        Insira sua <strong>API Key do Google AI Studio</strong> (salva localmente no navegador):
       </p>
       <div class="flex gap-2">
-        <input id="gemini-key-input" type="password" placeholder="AIzaSy..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
-        <button onclick="saveGeminiKey()" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer border border-slate-700">
+        <input id="gemini-key-input" type="password" placeholder="AIzaSy..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600" />
+        <button onclick="saveGeminiKey()" class="bg-zinc-100 hover:bg-white text-zinc-900 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer">
           Salvar
         </button>
       </div>
     </div>
 
-    <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-3 text-xs text-slate-300 leading-relaxed bg-slate-900/50">
-      <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-slate-300">
-        Painel operacional ativo. Conectado à base de veículos OOH/DOOH. Como posso auxiliar na auditoria de processos ou relatórios?
+    <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-3 text-xs text-zinc-300 leading-relaxed bg-black/40">
+      <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800 text-zinc-300">
+        Olá! Estou conectado à base de veículos OOH/DOOH e pronto para responder dúvidas ou gerar relatórios. O que deseja saber?
       </div>
     </div>
 
-    <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
-      <input id="chat-input" type="text" placeholder="Ex: Status atual da Ultramídia..." onkeydown="if(event.key==='Enter') sendChat()" class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
-      <button id="chat-send-btn" onclick="sendChat()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white px-3 py-2 rounded-lg text-xs font-medium cursor-pointer">Enviar</button>
+    <div class="p-3 border-t border-zinc-800 bg-zinc-950 flex gap-2">
+      <input id="chat-input" type="text" placeholder="Ex: Como está a Out Midia?" onkeydown="if(event.key==='Enter') sendChat()" class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600" />
+      <button onclick="sendChat()" class="bg-zinc-100 hover:bg-white text-zinc-900 px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer">Enviar</button>
     </div>
   </div>
 
   <!-- Gaveta Lateral de Detalhes -->
-  <div id="drawer-backdrop" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-40 flex justify-end" onclick="closeDrawer()">
-    <div id="drawer-content" class="w-full max-w-lg bg-slate-900 border-l border-slate-800 h-full overflow-y-auto p-6 space-y-6 shadow-2xl" onclick="event.stopPropagation()"></div>
+  <div id="drawer-backdrop" class="hidden fixed inset-0 bg-black/70 backdrop-blur-xs z-40 flex justify-end" onclick="closeDrawer()">
+    <div id="drawer-content" class="w-full max-w-lg bg-zinc-900 border-l border-zinc-800 h-full overflow-y-auto p-6 space-y-6 shadow-2xl" onclick="event.stopPropagation()"></div>
   </div>
 
   <!-- Modal Novo Cliente -->
-  <div id="new-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <form onsubmit="addClient(event)" class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+  <div id="new-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <form onsubmit="addClient(event)" class="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
-        <h3 class="text-sm font-bold text-slate-100 uppercase tracking-wide">Adicionar Novo Veículo na Esteira</h3>
-        <button type="button" onclick="closeNewModal()" class="text-slate-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Adicionar Cliente na Esteira</h3>
+        <button type="button" onclick="closeNewModal()" class="text-zinc-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
       <div>
-        <label class="text-[11px] font-medium text-slate-400 uppercase tracking-wider block mb-1">Nome do Veículo / Empresa *</label>
-        <input id="new-name" type="text" required placeholder="Ex: Ativa" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
+        <label class="text-[11px] font-medium uppercase tracking-wider text-zinc-400 block mb-1">Nome do Veículo / Empresa *</label>
+        <input id="new-name" type="text" required placeholder="Ex: Ativa" class="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600" />
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="text-[11px] font-medium text-slate-400 uppercase tracking-wider block mb-1">Responsável</label>
-          <input id="new-resp" type="text" value="Nicolly" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
+          <label class="text-[11px] font-medium uppercase tracking-wider text-zinc-400 block mb-1">Responsável</label>
+          <input id="new-resp" type="text" value="Nicolly" class="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600" />
         </div>
         <div>
-          <label class="text-[11px] font-medium text-slate-400 uppercase tracking-wider block mb-1">Meta Go-Live</label>
-          <input id="new-golive" type="text" placeholder="Ex: 30/11/2026" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
+          <label class="text-[11px] font-medium uppercase tracking-wider text-zinc-400 block mb-1">Meta Go-Live</label>
+          <input id="new-golive" type="text" placeholder="Ex: 30/11/2026" class="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600" />
         </div>
       </div>
       <div class="pt-2 flex justify-end gap-2">
-        <button type="button" onclick="closeNewModal()" class="px-3.5 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800 cursor-pointer">Cancelar</button>
-        <button type="submit" class="px-3.5 py-2 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white cursor-pointer">Cadastrar na Estação 1</button>
+        <button type="button" onclick="closeNewModal()" class="px-3.5 py-2 rounded-lg text-xs text-zinc-400 hover:bg-zinc-800 cursor-pointer">Cancelar</button>
+        <button type="submit" class="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-100 hover:bg-white text-zinc-900 cursor-pointer">Iniciar na Estação 1</button>
       </div>
     </form>
   </div>
@@ -159,9 +159,9 @@
     };
 
     const STATUS_CONFIG = {
-      em_dia: { label: "Em dia", badge: "bg-emerald-950/60 text-emerald-300 border-emerald-800/60", dot: "bg-emerald-400", border: "border-slate-800" },
-      aguardando_cliente: { label: "Aguardando cliente", badge: "bg-amber-950/60 text-amber-300 border-amber-800/60", dot: "bg-amber-400", border: "border-amber-900/50" },
-      travado: { label: "Travado / Atenção", badge: "bg-rose-950/60 text-rose-300 border-rose-800/60", dot: "bg-rose-400", border: "border-rose-900/50" },
+      em_dia: { label: "Em dia", badge: "bg-zinc-800 text-zinc-300 border-zinc-700", dot: "bg-zinc-400", border: "border-zinc-800" },
+      aguardando_cliente: { label: "Aguardando cliente", badge: "bg-amber-950/40 text-amber-300 border-amber-900/40", dot: "bg-amber-400", border: "border-amber-900/40" },
+      travado: { label: "Travado / Atenção", badge: "bg-rose-950/40 text-rose-300 border-rose-900/40", dot: "bg-rose-400", border: "border-rose-900/40" },
     };
 
     function createChecklists() {
@@ -187,11 +187,11 @@
       { id: "22", name: "Vê Mais", legalName: "Junkes & Borba Ltda", market: "SC", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 10, pointsStatic: 191, totalPoints: 201, responsible: "Tathiane Schmitz", email: "vendas2@vemais.com.br", phone: "(47) 988866539", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "03/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "12/11/2026", event: "Configuração de inventário" }] }
     ];
 
-    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v5")) || INITIAL_CLIENTS;
+    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v6")) || INITIAL_CLIENTS;
     let selectedClientId = null;
 
     function save() {
-      localStorage.setItem("client_onboarding_html_v5", JSON.stringify(clients));
+      localStorage.setItem("client_onboarding_html_v6", JSON.stringify(clients));
       render();
     }
 
@@ -203,25 +203,25 @@
       const top = counts.reduce((p, c) => (c.count > p.count ? c : p), { title: "-", count: 0 });
 
       document.getElementById("kpis").innerHTML = `
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Veículos na Esteira</p>
-          <p class="text-2xl font-bold text-slate-100 mt-1">${total}</p>
-          <p class="text-[11px] text-slate-500 mt-1">Fluxo ativo corporativo</p>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+          <p class="text-xs uppercase tracking-wider text-zinc-400">Clientes na Esteira</p>
+          <p class="text-2xl font-bold text-white mt-1">${total}</p>
+          <p class="text-xs text-zinc-500 mt-1">Em fluxo ativo de implantação</p>
         </div>
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Pendências / Alertas</p>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+          <p class="text-xs uppercase tracking-wider text-zinc-400">Com Pendência / Travados</p>
           <p class="text-2xl font-bold text-amber-400 mt-1">${blocked}</p>
-          <p class="text-[11px] text-slate-500 mt-1">Aguardando cliente ou bloqueio</p>
+          <p class="text-xs text-zinc-500 mt-1">Aguardando cliente ou bloqueio</p>
         </div>
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Tempo Médio (Aging)</p>
-          <p class="text-2xl font-bold text-slate-200 mt-1">${avg} dias</p>
-          <p class="text-[11px] text-slate-500 mt-1">Média nas estações atuais</p>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+          <p class="text-xs uppercase tracking-wider text-zinc-400">Tempo Médio na Estação</p>
+          <p class="text-2xl font-bold text-zinc-200 mt-1">${avg} dias</p>
+          <p class="text-xs text-zinc-500 mt-1">Aging atual da etapa ativa</p>
         </div>
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-sm">
-          <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Maior Concentração</p>
-          <p class="text-base font-bold text-slate-200 mt-1.5 truncate">${top.count > 0 ? `${top.title} (${top.count})` : "Nenhum"}</p>
-          <p class="text-[11px] text-slate-500 mt-1">Etapa com mais volume</p>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+          <p class="text-xs uppercase tracking-wider text-zinc-400">Maior Concentração</p>
+          <p class="text-lg font-bold text-zinc-200 mt-1 truncate">${top.count > 0 ? `${top.title} (${top.count})` : "Nenhum"}</p>
+          <p class="text-xs text-zinc-500 mt-1">Estação com mais clientes</p>
         </div>
       `;
 
@@ -234,54 +234,54 @@
         const progressWidth = ((client.currentStage + 0.5) / STAGES.length) * 100;
 
         return `
-          <div onclick="openDrawer('${client.id}')" class="bg-slate-900 hover:bg-slate-900/90 border ${st.border} rounded-xl p-5 transition cursor-pointer shadow-sm">
-            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+          <div onclick="openDrawer('${client.id}')" class="bg-zinc-900 hover:bg-zinc-900/90 border ${st.border} rounded-2xl p-5 transition cursor-pointer shadow-md">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-zinc-800">
               <div class="flex items-center gap-3">
-                <span class="w-2.5 h-2.5 rounded-full ${st.dot}"></span>
+                <span class="w-3 h-3 rounded-full ${st.dot}"></span>
                 <div>
                   <div class="flex items-center gap-2">
-                    <h3 class="text-sm font-bold text-slate-100">${client.name}</h3>
-                    ${client.market ? `<span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/60 font-medium">${client.market}</span>` : ""}
+                    <h3 class="text-base font-bold text-white">${client.name}</h3>
+                    ${client.market ? `<span class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">${client.market}</span>` : ""}
                   </div>
-                  <div class="flex flex-wrap items-center gap-2.5 text-xs text-slate-400 mt-1">
-                    <span>Resp.: <strong class="text-slate-300">${client.responsible}</strong></span>
+                  <div class="flex flex-wrap items-center gap-3 text-xs text-zinc-400 mt-0.5">
+                    <span>Resp. Com.: ${client.responsible}</span>
                     ${client.totalPoints ? `<span>•</span><span>${client.totalPoints} pontos (${client.pointsDigital} dig / ${client.pointsStatic} est)</span>` : ""}
                     <span>•</span>
-                    <span>Meta Go-Live: <strong class="text-slate-200">${client.goLiveTarget}</strong></span>
+                    <span>Meta Go-Live: <strong class="text-zinc-200">${client.goLiveTarget}</strong></span>
                   </div>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5">
-                <span class="text-xs px-2.5 py-1 rounded border font-medium ${overSla ? "bg-rose-950/50 text-rose-300 border-rose-900/50" : "bg-slate-800 text-slate-300 border-slate-700/80"}">
-                  ${client.daysInStage}d na etapa (SLA: ${stageMeta.slaDays}d)
+              <div class="flex items-center gap-3">
+                <span class="text-xs px-2.5 py-1 rounded-full border font-medium ${overSla ? "bg-rose-950/50 text-rose-300 border-rose-900/50" : "bg-zinc-800 text-zinc-300 border-zinc-700"}">
+                  ${client.daysInStage}d na estação (SLA: ${stageMeta.slaDays}d)
                 </span>
-                <span class="text-xs px-2.5 py-1 rounded border font-medium ${st.badge}">${st.label}</span>
+                <span class="text-xs px-3 py-1 rounded-full border font-medium ${st.badge}">${st.label}</span>
               </div>
             </div>
 
             <div class="pt-5 pb-2 overflow-x-auto">
               <div class="min-w-[760px] relative">
-                <div class="h-2 bg-slate-800 rounded-full w-full absolute top-4 left-0 overflow-hidden border border-slate-700/50">
-                  <div class="h-full bg-slate-600 transition-all duration-300" style="width: ${progressWidth}%"></div>
+                <div class="h-2.5 bg-zinc-800 rounded-full w-full absolute top-5 left-0 overflow-hidden border border-zinc-700">
+                  <div class="h-full bg-zinc-300 transition-all duration-500" style="width: ${progressWidth}%"></div>
                 </div>
                 <div class="grid grid-cols-6 gap-2 relative z-10">
                   ${STAGES.map((stage, idx) => {
                     const isCompleted = idx < client.currentStage;
                     const isCurrent = idx === client.currentStage;
                     const boxClass = isCompleted
-                      ? "bg-slate-700 border-slate-600 text-slate-200"
+                      ? "bg-zinc-700 border-zinc-600 text-white"
                       : isCurrent
-                      ? "bg-slate-800 border-slate-500 text-white ring-2 ring-slate-600 shadow"
-                      : "bg-slate-950 border-slate-800 text-slate-600";
-                    const titleClass = isCurrent ? "text-slate-200 font-bold" : isCompleted ? "text-slate-300" : "text-slate-600";
+                      ? "bg-zinc-200 border-white text-zinc-900 scale-110 ring-4 ring-zinc-700/50 font-bold"
+                      : "bg-zinc-950 border-zinc-800 text-zinc-600";
+                    const titleClass = isCurrent ? "text-white font-semibold" : isCompleted ? "text-zinc-300" : "text-zinc-600";
                     return `
                       <div class="flex flex-col items-center text-center">
-                        <div class="w-9 h-9 rounded-lg flex items-center justify-center border transition-all ${boxClass}">
-                          ${isCompleted ? '<i data-lucide="check" class="w-4 h-4"></i>' : isCurrent ? '<i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>' : `<span class="text-[11px] font-semibold">${idx + 1}</span>`}
+                        <div class="w-11 h-11 rounded-xl flex items-center justify-center border-2 transition-all shadow ${boxClass}">
+                          ${isCompleted ? '<i data-lucide="check" class="w-5 h-5"></i>' : isCurrent ? '<i data-lucide="factory" class="w-5 h-5"></i>' : `<span class="text-xs font-bold">${idx + 1}</span>`}
                         </div>
-                        <p class="text-[11px] font-medium mt-2 ${titleClass}">${stage.title}</p>
-                        <p class="text-[10px] text-slate-500">${stage.subtitle}</p>
-                        ${isCurrent ? `<span class="mt-1 text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded">Itens: ${doneCount}/${list.length}</span>` : ""}
+                        <p class="text-xs mt-2.5 ${titleClass}">${stage.title}</p>
+                        <p class="text-[11px] text-zinc-500">${stage.subtitle}</p>
+                        ${isCurrent ? `<span class="mt-1.5 text-[10px] bg-zinc-800 text-zinc-300 border border-zinc-700 px-2 py-0.5 rounded-full">Checklist: ${doneCount}/${list.length}</span>` : ""}
                       </div>
                     `;
                   }).join("")}
@@ -289,13 +289,13 @@
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3" onclick="event.stopPropagation()">
-              <div class="text-xs text-slate-400">
-                ${client.blockerReason ? `<span class="text-amber-300 font-medium"><strong>Bloqueio:</strong> ${client.blockerReason}</span>` : "Operação em andamento regular."}
+            <div class="mt-4 pt-3 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-3" onclick="event.stopPropagation()">
+              <div class="text-xs text-zinc-400">
+                ${client.blockerReason ? `<span class="text-amber-300"><strong>Motivo:</strong> ${client.blockerReason}</span>` : "Fluxo operando normalmente na estação atual."}
               </div>
               <div class="flex items-center gap-2">
-                <button ${client.currentStage === 0 ? "disabled" : ""} onclick="moveStage('${client.id}', -1)" class="text-xs px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 disabled:opacity-20 text-slate-300 transition cursor-pointer border border-slate-700">← Retroceder</button>
-                <button ${client.currentStage === STAGES.length - 1 ? "disabled" : ""} onclick="moveStage('${client.id}', 1)" class="text-xs px-3 py-1.5 rounded bg-slate-700 hover:bg-slate-600 disabled:opacity-20 text-white font-medium transition cursor-pointer border border-slate-600">Avançar Etapa →</button>
+                <button ${client.currentStage === 0 ? "disabled" : ""} onclick="moveStage('${client.id}', -1)" class="text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 text-zinc-200 transition cursor-pointer border border-zinc-700">← Voltar</button>
+                <button ${client.currentStage === STAGES.length - 1 ? "disabled" : ""} onclick="moveStage('${client.id}', 1)" class="text-xs px-3 py-1.5 rounded-lg bg-zinc-200 hover:bg-white text-zinc-900 disabled:opacity-30 font-semibold transition cursor-pointer">Avançar Estação →</button>
               </div>
             </div>
           </div>
@@ -306,7 +306,7 @@
       lucide.createIcons();
     }
 
-    // --- IA / GEMINI ---
+    // --- GEMINI API ---
     function toggleChat() {
       const win = document.getElementById("chat-window");
       win.classList.toggle("hidden");
@@ -328,7 +328,7 @@
       if (val) {
         localStorage.setItem("gemini_api_key", val);
         document.getElementById("api-config-box").classList.add("hidden");
-        addChatMessage("ai", "Chave de acesso configurada com sucesso.");
+        addChatMessage("ai", "Chave da API salva com sucesso!");
       }
     }
 
@@ -337,9 +337,8 @@
       const isUser = sender === "user";
       const id = "msg-" + Date.now();
       box.innerHTML += `
-        <div id="${id}" class="p-3 rounded-lg border ${isUser ? 'bg-slate-950 border-slate-800 ml-4 text-slate-200' : 'bg-slate-950 border-slate-800 mr-4 text-slate-300'}">
-          <strong class="text-slate-400 text-[10px] uppercase tracking-wider block mb-0.5">${isUser ? 'Analista' : 'Assistente Interno'}</strong>
-          <div class="whitespace-pre-line">${htmlText}</div>
+        <div id="${id}" class="p-3 rounded-xl border ${isUser ? 'bg-zinc-950 border-zinc-800 ml-6 text-zinc-200' : 'bg-zinc-950 border-zinc-800 mr-4 text-zinc-200'}">
+          <strong>${isUser ? 'Você' : 'Gemini IA'}:</strong><div class="mt-1 whitespace-pre-line">${htmlText}</div>
         </div>
       `;
       box.scrollTop = box.scrollHeight;
@@ -360,13 +359,13 @@
       const apiKey = localStorage.getItem("gemini_api_key");
       if (!apiKey) {
         document.getElementById("api-config-box").classList.remove("hidden");
-        addChatMessage("ai", "Por favor, configure sua chave da API no ícone de engrenagem.");
+        addChatMessage("ai", "Por favor, configure sua chave da API do Google no ícone de engrenagem.");
         return;
       }
 
       addChatMessage("user", question);
       input.value = "";
-      const loadingId = addChatMessage("ai", "Processando base de dados...");
+      const loadingId = addChatMessage("ai", "Consultando base e pensando...");
 
       const contextData = clients.map(c => ({
         veiculo: c.name,
@@ -387,12 +386,16 @@
         motivoBloqueio: c.blockerReason || "Nenhum"
       }));
 
-      const prompt = `Você é um assistente especialista em operações e implantação de veículos de mídia exterior (OOH / DOOH) auxiliando a analista Nicolly.
-Base de dados atualizada dos clientes:
+      const prompt = `Você é um assistente especialista em operações e implantação de veículos de mídia exterior (OOH / DOOH) trabalhando junto com a analista Nicolly.
+Abaixo está a base atualizada em JSON dos clientes na esteira de onboarding:
 ${JSON.stringify(contextData, null, 2)}
 
-Instruções: Responda em tom corporativo, direto, executivo e em português do Brasil.
-Pergunta: "${question}"`;
+Instruções:
+1. Responda de forma clara, direta, executiva e em português do Brasil.
+2. Se o usuário perguntar sobre uma empresa da base, traga os dados exatos dela na esteira.
+3. Se pedir relatórios ou análises de gargalos, use bullet points objetivos.
+
+Pergunta do usuário: "${question}"`;
 
       try {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
@@ -404,14 +407,14 @@ Pergunta: "${question}"`;
         const data = await res.json();
         const loadingEl = document.getElementById(loadingId);
         if (data.error) {
-          loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro: ${data.error.message}</span>`;
+          loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro na API do Google: ${data.error.message}</span>`;
         } else {
-          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sem resposta gerada.";
+          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Não consegui gerar uma resposta.";
           loadingEl.querySelector("div").innerHTML = formatBasicMarkdown(reply);
         }
       } catch (err) {
         const loadingEl = document.getElementById(loadingId);
-        loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro de conexão.</span>`;
+        loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro de conexão ao chamar o Gemini.</span>`;
       }
       document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
     }
@@ -458,61 +461,62 @@ Pergunta: "${question}"`;
       if (!c) return;
       const list = c.checklists[c.currentStage] || [];
       document.getElementById("drawer-content").innerHTML = `
-        <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+        <div class="flex items-start justify-between gap-4 border-b border-zinc-800 pb-4">
           <div>
-            <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Etapa: ${STAGES[c.currentStage].title}</span>
-            <h2 class="text-lg font-bold text-slate-100 mt-0.5">${c.name}</h2>
-            <p class="text-xs text-slate-400 mt-0.5">${c.legalName || ""} ${c.market ? `• Praça: ${c.market}` : ""}</p>
-            <p class="text-xs text-slate-400 mt-1">Responsável: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
+            <span class="text-xs uppercase tracking-wider text-zinc-400 font-semibold">Estação Atual: ${STAGES[c.currentStage].title}</span>
+            <h2 class="text-xl font-bold text-white mt-0.5">${c.name}</h2>
+            <p class="text-xs text-zinc-400 mt-0.5">${c.legalName || ""} ${c.market ? `• Praça: ${c.market}` : ""}</p>
+            <p class="text-xs text-zinc-400 mt-1">Resp. Comercial: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
+            ${c.email ? `<p class="text-xs text-zinc-500 mt-0.5">${c.email} • ${c.phone || ""}</p>` : ""}
           </div>
-          <button onclick="closeDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">✕</button>
+          <button onclick="closeDrawer()" class="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 cursor-pointer">✕</button>
         </div>
 
         <div class="space-y-3">
-          <label class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Status Operacional</label>
+          <label class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Status na Estação</label>
           <div class="grid grid-cols-3 gap-2">
             ${Object.entries(STATUS_CONFIG).map(([key, cfg]) => `
-              <button onclick="updateStatus('${c.id}', '${key}')" class="text-xs py-2 px-2 rounded-lg border font-medium transition cursor-pointer ${c.status === key ? cfg.badge : "bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200"}">
+              <button onclick="updateStatus('${c.id}', '${key}')" class="text-xs py-2 px-2 rounded-lg border font-medium transition cursor-pointer ${c.status === key ? cfg.badge : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-zinc-200"}">
                 ${cfg.label}
               </button>
             `).join("")}
           </div>
           ${c.status !== "em_dia" ? `
             <div>
-              <label class="text-[11px] text-slate-400 block mb-1">Motivo do bloqueio / pendência:</label>
-              <input type="text" value="${c.blockerReason || ""}" onchange="updateReason('${c.id}', this.value)" placeholder="Descreva..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-slate-600" />
+              <label class="text-xs text-zinc-400 block mb-1">Motivo da pendência / bloqueio:</label>
+              <input type="text" value="${c.blockerReason || ""}" onchange="updateReason('${c.id}', this.value)" placeholder="Descreva o motivo..." class="w-full bg-black border border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-zinc-600" />
             </div>
           ` : ""}
         </div>
 
         <div class="space-y-3">
-          <h3 class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Checklist da Etapa</h3>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Checklist — ${STAGES[c.currentStage].title}</h3>
           <div class="space-y-2">
             ${list.map(item => `
-              <button onclick="toggleCheck('${c.id}', ${c.currentStage}, '${item.id}')" class="w-full flex items-center gap-3 p-2.5 rounded-lg bg-slate-950 border border-slate-800 hover:border-slate-700 text-left transition cursor-pointer">
-                <span class="text-xs ${item.done ? "text-emerald-400" : "text-slate-600"}">${item.done ? "☑" : "☐"}</span>
-                <span class="text-xs ${item.done ? "line-through text-slate-500" : "text-slate-300"}">${item.text}</span>
+              <button onclick="toggleCheck('${c.id}', ${c.currentStage}, '${item.id}')" class="w-full flex items-center gap-3 p-3 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 text-left transition cursor-pointer">
+                <span class="text-sm ${item.done ? "text-zinc-300" : "text-zinc-600"}">${item.done ? "☑" : "☐"}</span>
+                <span class="text-sm ${item.done ? "line-through text-zinc-500" : "text-zinc-200"}">${item.text}</span>
               </button>
             `).join("")}
           </div>
         </div>
 
         <div class="space-y-3">
-          <h3 class="text-[11px] font-medium uppercase tracking-wider text-slate-400">Histórico de Rastreio</h3>
-          <div class="border-l border-slate-800 ml-2 pl-4 space-y-3">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Histórico de Rastreio</h3>
+          <div class="border-l-2 border-zinc-800 ml-2 pl-4 space-y-3">
             ${c.logs.map(l => `
               <div class="relative">
-                <span class="w-2 h-2 rounded-full bg-slate-600 absolute -left-[17px] top-1"></span>
-                <p class="text-[11px] text-slate-500">${l.date}</p>
-                <p class="text-xs text-slate-300">${l.event}</p>
+                <span class="w-2.5 h-2.5 rounded-full bg-zinc-600 absolute -left-[21px] top-1.5"></span>
+                <p class="text-xs text-zinc-500">${l.date}</p>
+                <p class="text-sm text-zinc-300">${l.event}</p>
               </div>
             `).join("")}
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
-          <button onclick="deleteClient('${c.id}')" class="text-xs text-rose-400 hover:text-rose-300 cursor-pointer">Remover registro</button>
-          <button onclick="closeDrawer()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-medium px-3.5 py-2 rounded-lg cursor-pointer">Fechar</button>
+        <div class="pt-4 border-t border-zinc-800 flex justify-between items-center">
+          <button onclick="deleteClient('${c.id}')" class="text-xs text-rose-400 hover:text-rose-300 cursor-pointer">Remover cliente</button>
+          <button onclick="closeDrawer()" class="bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-medium px-4 py-2 rounded-lg cursor-pointer">Fechar</button>
         </div>
       `;
     }
@@ -569,7 +573,7 @@ Pergunta: "${question}"`;
     }
 
     function resetDemo() {
-      localStorage.removeItem("client_onboarding_html_v5");
+      localStorage.removeItem("client_onboarding_html_v6");
       clients = JSON.parse(JSON.stringify(INITIAL_CLIENTS));
       closeDrawer();
       render();
