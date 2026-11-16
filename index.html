@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Esteira de Onboarding & Implantação</title>
+  <title>Esteira de Onboarding & Implantação com IA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen pb-24">
   <!-- Navbar -->
   <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-20">
     <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
@@ -17,7 +17,7 @@
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white">Esteira de Onboarding & Implantação</h1>
-          <p class="text-xs text-slate-400">Linha de produção de clientes • Acompanhamento de estações e SLA</p>
+          <p class="text-xs text-slate-400">Linha de produção de clientes • Com Assistente de IA integrado</p>
         </div>
       </div>
 
@@ -27,7 +27,7 @@
         </button>
         <button onclick="openNewModal()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-lg shadow-indigo-600/20 transition cursor-pointer">
           <i data-lucide="plus" class="w-4 h-4"></i>
-          Novo Cliente na Esteira
+          Novo Cliente
         </button>
       </div>
     </div>
@@ -39,15 +39,52 @@
 
     <!-- Lista de Esteiras -->
     <section class="space-y-4">
-      <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
-        Linha de Montagem Ativa (Clique em um cliente para abrir checklist e histórico)
-      </h2>
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+          Linha de Montagem Ativa
+        </h2>
+        <div class="flex items-center gap-2">
+          <button onclick="askAIQuick('resumo')" class="text-xs bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+            <i data-lucide="bot" class="w-3.5 h-3.5"></i> Resumir Status para Gestor
+          </button>
+          <button onclick="askAIQuick('travados')" class="text-xs bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Analisar Gargalos
+          </button>
+        </div>
+      </div>
       <div id="tracks-container" class="space-y-5"></div>
     </section>
   </main>
 
-  <!-- Gaveta Lateral -->
+  <!-- Botão Flutuante do Chat de IA -->
+  <div class="fixed bottom-6 right-6 z-30">
+    <button onclick="toggleChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center gap-2 border border-indigo-400/30 transition transform hover:scale-105 cursor-pointer">
+      <i data-lucide="bot" class="w-6 h-6"></i>
+      <span class="text-sm font-semibold pr-2 hidden sm:inline">Assistente IA</span>
+    </button>
+  </div>
+
+  <!-- Janela do Chat Flutuante (IA) -->
+  <div id="chat-window" class="hidden fixed bottom-24 right-6 w-96 max-w-[90vw] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-40 flex flex-col overflow-hidden">
+    <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm">
+        <i data-lucide="bot" class="w-4 h-4"></i> Assistente Operacional IA
+      </div>
+      <button onclick="toggleChat()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+    <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-3 text-xs text-slate-200">
+      <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+        Olá, Nicolly! Sou seu assistente de implantação. Posso analisar sua base de clientes, verificar gargalos ou redigir relatórios para seu gestor. O que deseja saber?
+      </div>
+    </div>
+    <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
+      <input id="chat-input" type="text" placeholder="Ex: Qual cliente está travado?" onkeydown="if(event.key==='Enter') sendChat()" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
+      <button onclick="sendChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Gaveta Lateral de Detalhes -->
   <div id="drawer-backdrop" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-40 flex justify-end" onclick="closeDrawer()">
     <div id="drawer-content" class="w-full max-w-lg bg-slate-900 border-l border-slate-800 h-full overflow-y-auto p-6 space-y-6 shadow-2xl" onclick="event.stopPropagation()"></div>
   </div>
@@ -57,9 +94,7 @@
     <form onsubmit="addClient(event)" class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-bold text-white">Adicionar Cliente na Esteira</h3>
-        <button type="button" onclick="closeNewModal()" class="text-slate-400 hover:text-white cursor-pointer">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+        <button type="button" onclick="closeNewModal()" class="text-slate-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div>
         <label class="text-xs text-slate-400 block mb-1">Nome do Veículo / Empresa *</label>
@@ -116,157 +151,25 @@
     }
 
     const INITIAL_CLIENTS = [
-      {
-        id: "2",
-        name: "Ativa (Mais Canal Mídias)",
-        responsible: "Angélica Machado",
-        currentStage: 4,
-        status: "em_dia",
-        daysInStage: 2,
-        goLiveTarget: "30/11/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "01/11/2026", event: "Entrada na esteira (Inventário Set/26)" }]
-      },
-      {
-        id: "4",
-        name: "BR Outdoor (Blue Media)",
-        responsible: "Kim Soave",
-        currentStage: 3,
-        status: "em_dia",
-        daysInStage: 3,
-        goLiveTarget: "05/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "02/11/2026", event: "Iniciado setup técnico" }]
-      },
-      {
-        id: "5",
-        name: "Divulcart (MSC Propaganda)",
-        responsible: "Rildo Gomes",
-        currentStage: 2,
-        status: "em_dia",
-        daysInStage: 1,
-        goLiveTarget: "10/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "04/11/2026", event: "Aguardando envio de insumos" }]
-      },
-      {
-        id: "6",
-        name: "Even OOH (Even Marketing)",
-        responsible: "Vinícius Vicentin",
-        currentStage: 3,
-        status: "em_dia",
-        daysInStage: 2,
-        goLiveTarget: "02/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "03/11/2026", event: "Carga Out/26 em andamento" }]
-      },
-      {
-        id: "8",
-        name: "Interplan Mídia",
-        responsible: "Alexander Rodrigues",
-        currentStage: 4,
-        status: "em_dia",
-        daysInStage: 1,
-        goLiveTarget: "28/11/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "05/11/2026", event: "Treinamento agendado" }]
-      },
-      {
-        id: "9",
-        name: "J.Silva OOH (J.Silva Painéis)",
-        responsible: "Nádia Cristina",
-        currentStage: 1,
-        status: "aguardando_cliente",
-        daysInStage: 5,
-        goLiveTarget: "15/12/2026",
-        blockerReason: "Aguardando validação de escopo comercial (Em Curso).",
-        checklists: createChecklists(),
-        logs: [{ date: "06/11/2026", event: "Kickoff iniciado - Em Curso" }]
-      },
-      {
-        id: "11",
-        name: "LigaDOOH (DOOH Marketingplace)",
-        responsible: "Ana Luiza Holtermann",
-        currentStage: 5,
-        status: "em_dia",
-        daysInStage: 1,
-        goLiveTarget: "20/11/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "07/11/2026", event: "Virada Go-Live realizada" }]
-      },
-      {
-        id: "13",
-        name: "Nova OOH",
-        responsible: "Rafael Seiler",
-        currentStage: 2,
-        status: "em_dia",
-        daysInStage: 2,
-        goLiveTarget: "08/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "08/11/2026", event: "Fase de Coleta" }]
-      },
-      {
-        id: "14",
-        name: "Out Midia Publicidade",
-        responsible: "Igor Lazaroni",
-        currentStage: 3,
-        status: "em_dia",
-        daysInStage: 2,
-        goLiveTarget: "04/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "09/11/2026", event: "Setup em andamento" }]
-      },
-      {
-        id: "18",
-        name: "Publicar Mídia Exterior",
-        responsible: "Giovani Gaio",
-        currentStage: 4,
-        status: "em_dia",
-        daysInStage: 1,
-        goLiveTarget: "01/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "10/11/2026", event: "Homologação e Treinamento" }]
-      },
-      {
-        id: "21",
-        name: "Ultramídia Painéis",
-        responsible: "William Santoro",
-        currentStage: 5,
-        status: "em_dia",
-        daysInStage: 1,
-        goLiveTarget: "18/11/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "11/11/2026", event: "Operação assistida / Go-Live" }]
-      },
-      {
-        id: "22",
-        name: "Vê Mais (Junkes & Borba)",
-        responsible: "Tathiane Schmitz",
-        currentStage: 3,
-        status: "em_dia",
-        daysInStage: 2,
-        goLiveTarget: "03/12/2026",
-        blockerReason: "",
-        checklists: createChecklists(),
-        logs: [{ date: "12/11/2026", event: "Configuração de inventário" }]
-      }
+      { id: "2", name: "Ativa (Mais Canal Mídias)", responsible: "Angélica Machado", currentStage: 4, status: "em_dia", daysInStage: 2, goLiveTarget: "30/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "01/11/2026", event: "Entrada na esteira (Inventário Set/26)" }] },
+      { id: "4", name: "BR Outdoor (Blue Media)", responsible: "Kim Soave", currentStage: 3, status: "em_dia", daysInStage: 3, goLiveTarget: "05/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "02/11/2026", event: "Iniciado setup técnico" }] },
+      { id: "5", name: "Divulcart (MSC Propaganda)", responsible: "Rildo Gomes", currentStage: 2, status: "em_dia", daysInStage: 1, goLiveTarget: "10/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "04/11/2026", event: "Aguardando envio de insumos" }] },
+      { id: "6", name: "Even OOH (Even Marketing)", responsible: "Vinícius Vicentin", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "02/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "03/11/2026", event: "Carga Out/26 em andamento" }] },
+      { id: "8", name: "Interplan Mídia", responsible: "Alexander Rodrigues", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "28/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "05/11/2026", event: "Treinamento agendado" }] },
+      { id: "9", name: "J.Silva OOH (J.Silva Painéis)", responsible: "Nádia Cristina", currentStage: 1, status: "aguardando_cliente", daysInStage: 5, goLiveTarget: "15/12/2026", blockerReason: "Aguardando validação de escopo comercial (Em Curso).", checklists: createChecklists(), logs: [{ date: "06/11/2026", event: "Kickoff iniciado - Em Curso" }] },
+      { id: "11", name: "LigaDOOH (DOOH Marketingplace)", responsible: "Ana Luiza Holtermann", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "20/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "07/11/2026", event: "Virada Go-Live realizada" }] },
+      { id: "13", name: "Nova OOH", responsible: "Rafael Seiler", currentStage: 2, status: "em_dia", daysInStage: 2, goLiveTarget: "08/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "08/11/2026", event: "Fase de Coleta" }] },
+      { id: "14", name: "Out Midia Publicidade", responsible: "Igor Lazaroni", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "04/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "09/11/2026", event: "Setup em andamento" }] },
+      { id: "18", name: "Publicar Mídia Exterior", responsible: "Giovani Gaio", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "01/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "10/11/2026", event: "Homologação e Treinamento" }] },
+      { id: "21", name: "Ultramídia Painéis", responsible: "William Santoro", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "18/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "11/11/2026", event: "Operação assistida / Go-Live" }] },
+      { id: "22", name: "Vê Mais (Junkes & Borba)", responsible: "Tathiane Schmitz", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "03/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "12/11/2026", event: "Configuração de inventário" }] }
     ];
 
-    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v2")) || INITIAL_CLIENTS;
+    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v3")) || INITIAL_CLIENTS;
     let selectedClientId = null;
 
     function save() {
-      localStorage.setItem("client_onboarding_html_v2", JSON.stringify(clients));
+      localStorage.setItem("client_onboarding_html_v3", JSON.stringify(clients));
       render();
     }
 
@@ -375,6 +278,69 @@
 
       if (selectedClientId) renderDrawer();
       lucide.createIcons();
+    }
+
+    // Funcionalidades da IA Integrada
+    function toggleChat() {
+      const win = document.getElementById("chat-window");
+      win.classList.toggle("hidden");
+      lucide.createIcons();
+    }
+
+    function addChatMessage(sender, text) {
+      const box = document.getElementById("chat-messages");
+      const isUser = sender === "user";
+      box.innerHTML += `
+        <div class="p-3 rounded-xl border ${isUser ? 'bg-indigo-950/40 border-indigo-500/30 ml-6 text-indigo-200' : 'bg-slate-800/80 border-slate-700 mr-6 text-slate-200'}">
+          <strong>${isUser ? 'Você' : 'Assistente IA'}:</strong> ${text}
+        </div>
+      `;
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function sendChat() {
+      const input = document.getElementById("chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+      addChatMessage("user", text);
+      input.value = "";
+
+      setTimeout(() => {
+        const query = text.toLowerCase();
+        let response = "";
+
+        if (query.includes("travado") || query.includes("pendência") || query.includes("gargalo")) {
+          const travados = clients.filter(c => c.status !== "em_dia");
+          if (travados.length === 0) {
+            response = "No momento não há nenhum cliente travado! Todos estão rodando em dia.";
+          } else {
+            response = `Encontrei ${travados.length} cliente(s) com atenção necessária:<br>` + travados.map(c => `• <strong>${c.name}</strong> (${STATUS_CONFIG[c.status].label}): ${c.blockerReason || 'Sem motivo detalhado'}`).join("<br>");
+          }
+        } else if (query.includes("resumo") || query.includes("gestor") || query.includes("relatório")) {
+          const total = clients.length;
+          const noGoLive = clients.filter(c => c.currentStage === 5).length;
+          response = `📊 <strong>Resumo Executivo para Gestão:</strong><br>• Total de veículos na esteira: ${total}<br>• Veículos já em Go-Live (Produção): ${noGoLive}<br>• Ritmo operacional estável, com monitoramento ativo de SLA nas etapas técnicas.`;
+        } else {
+          // Busca por nome de cliente
+          const found = clients.find(c => query.split(" ").some(word => word.length > 2 && c.name.toLowerCase().includes(word)));
+          if (found) {
+            response = `📁 <strong>Status de ${found.name}:</strong><br>• Estação: ${STAGES[found.currentStage].title}<br>• Resp. Comercial: ${found.responsible}<br>• Status: ${STATUS_CONFIG[found.status].label}<br>• Meta Go-Live: ${found.goLiveTarget}`;
+          } else {
+            response = `Analisei os dados dos ${clients.length} clientes na esteira. Você pode me perguntar sobre clientes específicos (ex: "Como está a Ultramídia?"), gargalos ("Quem está travado?") ou pedir relatórios gerenciais!`;
+          }
+        }
+        addChatMessage("ai", response);
+      }, 500);
+    }
+
+    function askAIQuick(type) {
+      toggleChat();
+      if (type === 'resumo') {
+        document.getElementById("chat-input").value = "Me dê um resumo para o gestor";
+      } else {
+        document.getElementById("chat-input").value = "Quais clientes estão travados?";
+      }
+      sendChat();
     }
 
     function moveStage(id, dir) {
@@ -522,7 +488,7 @@
     }
 
     function resetDemo() {
-      localStorage.removeItem("client_onboarding_html_v2");
+      localStorage.removeItem("client_onboarding_html_v3");
       clients = JSON.parse(JSON.stringify(INITIAL_CLIENTS));
       closeDrawer();
       render();
