@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Esteira de Onboarding & Implantação com IA</title>
+  <title>Esteira de Onboarding & Implantação com Gemini IA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -17,7 +17,7 @@
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-white">Esteira de Onboarding & Implantação</h1>
-          <p class="text-xs text-slate-400">Linha de produção de clientes • Com Assistente de IA integrado</p>
+          <p class="text-xs text-slate-400">Linha de produção de clientes • Powered by Google Gemini</p>
         </div>
       </div>
 
@@ -45,10 +45,10 @@
           Linha de Montagem Ativa
         </h2>
         <div class="flex items-center gap-2">
-          <button onclick="askAIQuick('resumo')" class="text-xs bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+          <button onclick="askAIQuick('Me dê um resumo executivo da esteira hoje para eu enviar ao meu gestor.')" class="text-xs bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
             <i data-lucide="bot" class="w-3.5 h-3.5"></i> Resumir Status para Gestor
           </button>
-          <button onclick="askAIQuick('travados')" class="text-xs bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
+          <button onclick="askAIQuick('Analise todos os clientes da base e me diga quem está travado ou com risco de atraso no SLA.')" class="text-xs bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5">
             <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Analisar Gargalos
           </button>
         </div>
@@ -60,27 +60,49 @@
   <!-- Botão Flutuante do Chat de IA -->
   <div class="fixed bottom-6 right-6 z-30">
     <button onclick="toggleChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center gap-2 border border-indigo-400/30 transition transform hover:scale-105 cursor-pointer">
-      <i data-lucide="bot" class="w-6 h-6"></i>
-      <span class="text-sm font-semibold pr-2 hidden sm:inline">Assistente IA</span>
+      <i data-lucide="sparkles" class="w-6 h-6"></i>
+      <span class="text-sm font-semibold pr-2 hidden sm:inline">Perguntar ao Gemini</span>
     </button>
   </div>
 
-  <!-- Janela do Chat Flutuante (IA) -->
-  <div id="chat-window" class="hidden fixed bottom-24 right-6 w-96 max-w-[90vw] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-40 flex flex-col overflow-hidden">
+  <!-- Janela do Chat Flutuante (Gemini IA) -->
+  <div id="chat-window" class="hidden fixed bottom-24 right-6 w-[420px] max-w-[92vw] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-40 flex flex-col overflow-hidden">
     <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
-      <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm">
-        <i data-lucide="bot" class="w-4 h-4"></i> Assistente Operacional IA
+      <div class="flex items-center gap-2 text-indigo-300 font-bold text-sm">
+        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i> Assistente Gemini IA
       </div>
-      <button onclick="toggleChat()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+      <div class="flex items-center gap-2">
+        <button onclick="toggleApiConfig()" title="Configurar Chave API do Google" class="text-slate-400 hover:text-white p-1 rounded cursor-pointer">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+        </button>
+        <button onclick="toggleChat()" class="text-slate-400 hover:text-white p-1 rounded cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
     </div>
-    <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-3 text-xs text-slate-200">
+
+    <!-- Painel de Configuração da Chave API -->
+    <div id="api-config-box" class="hidden bg-slate-950 p-3.5 border-b border-slate-800 space-y-2">
+      <p class="text-[11px] text-slate-300">
+        Cole sua <strong>API Key do Google AI Studio</strong> (fica salva apenas no seu navegador):
+      </p>
+      <div class="flex gap-2">
+        <input id="gemini-key-input" type="password" placeholder="AIzaSy..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500" />
+        <button onclick="saveGeminiKey()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer">
+          Salvar
+        </button>
+      </div>
+    </div>
+
+    <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-3 text-xs text-slate-200 leading-relaxed">
       <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700">
-        Olá, Nicolly! Sou seu assistente de implantação. Posso analisar sua base de clientes, verificar gargalos ou redigir relatórios para seu gestor. O que deseja saber?
+        Olá! Estou conectado à sua base completa de veículos (inventário, praças, responsáveis e status na esteira) e também tenho conhecimento geral sobre empresas de mídia OOH/DOOH. O que você quer saber?
       </div>
     </div>
+
     <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
-      <input id="chat-input" type="text" placeholder="Ex: Qual cliente está travado?" onkeydown="if(event.key==='Enter') sendChat()" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
-      <button onclick="sendChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer">Enviar</button>
+      <input id="chat-input" type="text" placeholder="Ex: Quem é a empresa Out Midia e como está?" onkeydown="if(event.key==='Enter') sendChat()" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500" />
+      <button id="chat-send-btn" onclick="sendChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer">Enviar</button>
     </div>
   </div>
 
@@ -150,26 +172,27 @@
       return obj;
     }
 
+    // Base enriquecida com todos os dados da planilha (Razão Social, Mercado, Pontos, Contatos)
     const INITIAL_CLIENTS = [
-      { id: "2", name: "Ativa (Mais Canal Mídias)", responsible: "Angélica Machado", currentStage: 4, status: "em_dia", daysInStage: 2, goLiveTarget: "30/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "01/11/2026", event: "Entrada na esteira (Inventário Set/26)" }] },
-      { id: "4", name: "BR Outdoor (Blue Media)", responsible: "Kim Soave", currentStage: 3, status: "em_dia", daysInStage: 3, goLiveTarget: "05/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "02/11/2026", event: "Iniciado setup técnico" }] },
-      { id: "5", name: "Divulcart (MSC Propaganda)", responsible: "Rildo Gomes", currentStage: 2, status: "em_dia", daysInStage: 1, goLiveTarget: "10/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "04/11/2026", event: "Aguardando envio de insumos" }] },
-      { id: "6", name: "Even OOH (Even Marketing)", responsible: "Vinícius Vicentin", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "02/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "03/11/2026", event: "Carga Out/26 em andamento" }] },
-      { id: "8", name: "Interplan Mídia", responsible: "Alexander Rodrigues", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "28/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "05/11/2026", event: "Treinamento agendado" }] },
-      { id: "9", name: "J.Silva OOH (J.Silva Painéis)", responsible: "Nádia Cristina", currentStage: 1, status: "aguardando_cliente", daysInStage: 5, goLiveTarget: "15/12/2026", blockerReason: "Aguardando validação de escopo comercial (Em Curso).", checklists: createChecklists(), logs: [{ date: "06/11/2026", event: "Kickoff iniciado - Em Curso" }] },
-      { id: "11", name: "LigaDOOH (DOOH Marketingplace)", responsible: "Ana Luiza Holtermann", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "20/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "07/11/2026", event: "Virada Go-Live realizada" }] },
-      { id: "13", name: "Nova OOH", responsible: "Rafael Seiler", currentStage: 2, status: "em_dia", daysInStage: 2, goLiveTarget: "08/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "08/11/2026", event: "Fase de Coleta" }] },
-      { id: "14", name: "Out Midia Publicidade", responsible: "Igor Lazaroni", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "04/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "09/11/2026", event: "Setup em andamento" }] },
-      { id: "18", name: "Publicar Mídia Exterior", responsible: "Giovani Gaio", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "01/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "10/11/2026", event: "Homologação e Treinamento" }] },
-      { id: "21", name: "Ultramídia Painéis", responsible: "William Santoro", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "18/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "11/11/2026", event: "Operação assistida / Go-Live" }] },
-      { id: "22", name: "Vê Mais (Junkes & Borba)", responsible: "Tathiane Schmitz", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "03/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "12/11/2026", event: "Configuração de inventário" }] }
+      { id: "2", name: "Ativa", legalName: "Mais Canal Mídias Ltda", market: "RS", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 137, pointsStatic: 0, totalPoints: 137, responsible: "Angélica Machado", email: "angelica@ativa.com.br", phone: "(51) 991266678", currentStage: 4, status: "em_dia", daysInStage: 2, goLiveTarget: "30/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "01/11/2026", event: "Entrada na esteira (Inventário Set/26)" }] },
+      { id: "4", name: "BR Outdoor", legalName: "Blue Media Marketing Ltda", market: "SP - Interior", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 12, pointsStatic: 219, totalPoints: 231, responsible: "Kim Soave", email: "kim@broutdoor.com.br", phone: "(15) 981700100", currentStage: 3, status: "em_dia", daysInStage: 3, goLiveTarget: "05/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "02/11/2026", event: "Iniciado setup técnico" }] },
+      { id: "5", name: "Divulcart", legalName: "MSC Propaganda Ltda", market: "CE", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 7, pointsStatic: 412, totalPoints: 419, responsible: "Rildo Gomes", email: "rildogomes@divulcart.com.br", phone: "(85) 991812629", currentStage: 2, status: "em_dia", daysInStage: 1, goLiveTarget: "10/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "04/11/2026", event: "Aguardando envio de insumos" }] },
+      { id: "6", name: "Even OOH", legalName: "Even Marketing Visual Ltda", market: "SP - Interior", contractStatus: "Assinado", inventory: "Carga Out/26", pointsDigital: 18, pointsStatic: 63, totalPoints: 81, responsible: "Vinícius Vicentin", email: "vinicius@boxbrasilgt.com", phone: "(17) 991232689", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "02/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "03/11/2026", event: "Carga Out/26 em andamento" }] },
+      { id: "8", name: "Interplan", legalName: "Interplan Mídia em Painéis Ltda", market: "RJ", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 17, pointsStatic: 0, totalPoints: 17, responsible: "Alexander Rodrigues", email: "alexanderrodrigues@msn.com", phone: "(21) 999775402", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "28/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "05/11/2026", event: "Treinamento agendado" }] },
+      { id: "9", name: "J.Silva OOH", legalName: "J.Silva Painéis Ltda", market: "SP - Interior", contractStatus: "Em Curso", inventory: "Carga Out/26", pointsDigital: 20, pointsStatic: 440, totalPoints: 460, responsible: "Nádia Cristina Gagliardi Ribeiro", email: "nadia@jsilvapaineis.com.br", phone: "(17) 997273459", currentStage: 1, status: "aguardando_cliente", daysInStage: 5, goLiveTarget: "15/12/2026", blockerReason: "Aguardando assinatura de contrato (Em Curso) e validação comercial.", checklists: createChecklists(), logs: [{ date: "06/11/2026", event: "Kickoff iniciado - Em Curso" }] },
+      { id: "11", name: "LigaDOOH", legalName: "DOOH Marketingplace Ltda", market: "NAC", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 63, pointsStatic: 80, totalPoints: 143, responsible: "Ana Luiza Holtermann", email: "analuiza@ligadooh.com.br", phone: "(84) 986021426", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "20/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "07/11/2026", event: "Virada Go-Live realizada" }] },
+      { id: "13", name: "Nova OOH", legalName: "Nova OOH Ltda", market: "PR", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 10, pointsStatic: 0, totalPoints: 10, responsible: "Rafael Seiler", email: "rafael@novaooh.com.br", phone: "(41) 999671627", currentStage: 2, status: "em_dia", daysInStage: 2, goLiveTarget: "08/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "08/11/2026", event: "Fase de Coleta" }] },
+      { id: "14", name: "Out Midia", legalName: "Out Mídia Publicidade Ltda", market: "RJ", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 26, pointsStatic: 0, totalPoints: 26, responsible: "Igor Lazaroni", email: "igor.laz@outmidia.com.br", phone: "(21) 983014020", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "04/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "09/11/2026", event: "Setup em andamento" }] },
+      { id: "18", name: "Publicar", legalName: "Publicar Mídia Exterior Ltda", market: "PR", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 8, pointsStatic: 3, totalPoints: 11, responsible: "Giovani Gaio", email: "comercial@publicarmidia.com.br", phone: "(45) 988137779", currentStage: 4, status: "em_dia", daysInStage: 1, goLiveTarget: "01/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "10/11/2026", event: "Homologação e Treinamento" }] },
+      { id: "21", name: "Ultramídia", legalName: "Ultramídia Painéis Ltda", market: "NAC", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 500, pointsStatic: 312, totalPoints: 812, responsible: "William Santoro", email: "williamsantoro@ultramidiapaineis.com.br", phone: "(11) 989608325", currentStage: 5, status: "em_dia", daysInStage: 1, goLiveTarget: "18/11/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "11/11/2026", event: "Operação assistida / Go-Live" }] },
+      { id: "22", name: "Vê Mais", legalName: "Junkes & Borba Ltda", market: "SC", contractStatus: "Assinado", inventory: "Carregado Set/26", pointsDigital: 10, pointsStatic: 191, totalPoints: 201, responsible: "Tathiane Schmitz", email: "vendas2@vemais.com.br", phone: "(47) 988866539", currentStage: 3, status: "em_dia", daysInStage: 2, goLiveTarget: "03/12/2026", blockerReason: "", checklists: createChecklists(), logs: [{ date: "12/11/2026", event: "Configuração de inventário" }] }
     ];
 
-    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v3")) || INITIAL_CLIENTS;
+    let clients = JSON.parse(localStorage.getItem("client_onboarding_html_v4")) || INITIAL_CLIENTS;
     let selectedClientId = null;
 
     function save() {
-      localStorage.setItem("client_onboarding_html_v3", JSON.stringify(clients));
+      localStorage.setItem("client_onboarding_html_v4", JSON.stringify(clients));
       render();
     }
 
@@ -217,9 +240,13 @@
               <div class="flex items-center gap-3">
                 <span class="w-3 h-3 rounded-full ${st.dot} animate-pulse"></span>
                 <div>
-                  <h3 class="text-base font-bold text-white">${client.name}</h3>
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-bold text-white">${client.name}</h3>
+                    ${client.market ? `<span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">${client.market}</span>` : ""}
+                  </div>
                   <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 mt-0.5">
                     <span>Resp. Com.: ${client.responsible}</span>
+                    ${client.totalPoints ? `<span>•</span><span>${client.totalPoints} pontos (${client.pointsDigital} dig / ${client.pointsStatic} est)</span>` : ""}
                     <span>•</span>
                     <span>Meta Go-Live: <strong class="text-slate-200">${client.goLiveTarget}</strong></span>
                   </div>
@@ -280,69 +307,130 @@
       lucide.createIcons();
     }
 
-    // Funcionalidades da IA Integrada
+    // --- INTEGRAÇÃO COM GOOGLE GEMINI API ---
     function toggleChat() {
       const win = document.getElementById("chat-window");
       win.classList.toggle("hidden");
+      const savedKey = localStorage.getItem("gemini_api_key");
+      if (!savedKey) {
+        document.getElementById("api-config-box").classList.remove("hidden");
+      }
       lucide.createIcons();
     }
 
-    function addChatMessage(sender, text) {
+    function toggleApiConfig() {
+      const box = document.getElementById("api-config-box");
+      box.classList.toggle("hidden");
+      document.getElementById("gemini-key-input").value = localStorage.getItem("gemini_api_key") || "";
+    }
+
+    function saveGeminiKey() {
+      const val = document.getElementById("gemini-key-input").value.trim();
+      if (val) {
+        localStorage.setItem("gemini_api_key", val);
+        document.getElementById("api-config-box").classList.add("hidden");
+        addChatMessage("ai", "Chave da API do Google Gemini salva com sucesso! Pode fazer qualquer pergunta agora.");
+      }
+    }
+
+    function addChatMessage(sender, htmlText) {
       const box = document.getElementById("chat-messages");
       const isUser = sender === "user";
+      const id = "msg-" + Date.now();
       box.innerHTML += `
-        <div class="p-3 rounded-xl border ${isUser ? 'bg-indigo-950/40 border-indigo-500/30 ml-6 text-indigo-200' : 'bg-slate-800/80 border-slate-700 mr-6 text-slate-200'}">
-          <strong>${isUser ? 'Você' : 'Assistente IA'}:</strong> ${text}
+        <div id="${id}" class="p-3 rounded-xl border ${isUser ? 'bg-indigo-950/40 border-indigo-500/30 ml-6 text-indigo-200' : 'bg-slate-800/80 border-slate-700 mr-4 text-slate-200'}">
+          <strong>${isUser ? 'Você' : 'Gemini IA'}:</strong><div class="mt-1 whitespace-pre-line">${htmlText}</div>
         </div>
       `;
       box.scrollTop = box.scrollHeight;
+      return id;
     }
 
-    function sendChat() {
+    function formatBasicMarkdown(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>');
+    }
+
+    async function sendChat() {
       const input = document.getElementById("chat-input");
-      const text = input.value.trim();
-      if (!text) return;
-      addChatMessage("user", text);
+      const question = input.value.trim();
+      if (!question) return;
+
+      const apiKey = localStorage.getItem("gemini_api_key");
+      if (!apiKey) {
+        document.getElementById("api-config-box").classList.remove("hidden");
+        addChatMessage("ai", "Por favor, cole sua chave da API do Google AI Studio no campo acima para ativar o Gemini.");
+        return;
+      }
+
+      addChatMessage("user", question);
       input.value = "";
+      const loadingId = addChatMessage("ai", "Consultando base e pensando...");
 
-      setTimeout(() => {
-        const query = text.toLowerCase();
-        let response = "";
+      // Prepara o contexto completo da esteira para o Gemini
+      const contextData = clients.map(c => ({
+        veiculo: c.name,
+        razaoSocial: c.legalName || "",
+        praca: c.market || "",
+        contrato: c.contractStatus || "",
+        inventario: c.inventory || "",
+        pontosTotais: c.totalPoints || 0,
+        pontosDigitais: c.pointsDigital || 0,
+        pontosEstaticos: c.pointsStatic || 0,
+        responsavelComercial: c.responsible,
+        email: c.email || "",
+        telefone: c.phone || "",
+        estacaoAtual: STAGES[c.currentStage].title,
+        statusEsteira: STATUS_CONFIG[c.status].label,
+        diasNaEstacao: c.daysInStage,
+        metaGoLive: c.goLiveTarget,
+        motivoBloqueio: c.blockerReason || "Nenhum"
+      }));
 
-        if (query.includes("travado") || query.includes("pendência") || query.includes("gargalo")) {
-          const travados = clients.filter(c => c.status !== "em_dia");
-          if (travados.length === 0) {
-            response = "No momento não há nenhum cliente travado! Todos estão rodando em dia.";
-          } else {
-            response = `Encontrei ${travados.length} cliente(s) com atenção necessária:<br>` + travados.map(c => `• <strong>${c.name}</strong> (${STATUS_CONFIG[c.status].label}): ${c.blockerReason || 'Sem motivo detalhado'}`).join("<br>");
-          }
-        } else if (query.includes("resumo") || query.includes("gestor") || query.includes("relatório")) {
-          const total = clients.length;
-          const noGoLive = clients.filter(c => c.currentStage === 5).length;
-          response = `📊 <strong>Resumo Executivo para Gestão:</strong><br>• Total de veículos na esteira: ${total}<br>• Veículos já em Go-Live (Produção): ${noGoLive}<br>• Ritmo operacional estável, com monitoramento ativo de SLA nas etapas técnicas.`;
+      const prompt = `Você é um assistente especialista em operações e implantação de veículos de mídia exterior (OOH / DOOH) trabalhando junto com a analista Nicolly.
+Abaixo está a base atualizada em JSON dos clientes na esteira de onboarding:
+${JSON.stringify(contextData, null, 2)}
+
+Instruções:
+1. Responda de forma clara, direta, executiva e em português do Brasil.
+2. Se o usuário perguntar sobre uma empresa da base (ex: Out Midia, Ativa, Ultramídia), traga os dados exatos dela na esteira (razão social, praça, pontos, estação atual, responsável, status) E, se útil, complemente com o contexto de atuação dessa empresa no mercado de mídia OOH/DOOH.
+3. Se pedir relatórios ou análises de gargalos, use bullet points objetivos.
+
+Pergunta do usuário: "${question}"`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }]
+          })
+        });
+
+        const data = await res.json();
+        const loadingEl = document.getElementById(loadingId);
+        if (data.error) {
+          loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro na API do Google: ${data.error.message}</span>`;
         } else {
-          // Busca por nome de cliente
-          const found = clients.find(c => query.split(" ").some(word => word.length > 2 && c.name.toLowerCase().includes(word)));
-          if (found) {
-            response = `📁 <strong>Status de ${found.name}:</strong><br>• Estação: ${STAGES[found.currentStage].title}<br>• Resp. Comercial: ${found.responsible}<br>• Status: ${STATUS_CONFIG[found.status].label}<br>• Meta Go-Live: ${found.goLiveTarget}`;
-          } else {
-            response = `Analisei os dados dos ${clients.length} clientes na esteira. Você pode me perguntar sobre clientes específicos (ex: "Como está a Ultramídia?"), gargalos ("Quem está travado?") ou pedir relatórios gerenciais!`;
-          }
+          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Não consegui gerar uma resposta.";
+          loadingEl.querySelector("div").innerHTML = formatBasicMarkdown(reply);
         }
-        addChatMessage("ai", response);
-      }, 500);
+      } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        loadingEl.querySelector("div").innerHTML = `<span class="text-rose-400">Erro de conexão ao chamar o Gemini. Verifique sua chave ou internet.</span>`;
+      }
+      document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
     }
 
-    function askAIQuick(type) {
-      toggleChat();
-      if (type === 'resumo') {
-        document.getElementById("chat-input").value = "Me dê um resumo para o gestor";
-      } else {
-        document.getElementById("chat-input").value = "Quais clientes estão travados?";
-      }
+    function askAIQuick(promptText) {
+      const win = document.getElementById("chat-window");
+      if (win.classList.contains("hidden")) toggleChat();
+      document.getElementById("chat-input").value = promptText;
       sendChat();
     }
 
+    // --- FUNÇÕES DA ESTEIRA ---
     function moveStage(id, dir) {
       const today = new Date().toLocaleDateString("pt-BR");
       clients = clients.map(c => {
@@ -382,7 +470,9 @@
           <div>
             <span class="text-xs uppercase tracking-wider text-indigo-400 font-semibold">Estação Atual: ${STAGES[c.currentStage].title}</span>
             <h2 class="text-xl font-bold text-white mt-0.5">${c.name}</h2>
-            <p class="text-xs text-slate-400 mt-1">Responsável Comercial: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
+            <p class="text-xs text-slate-400 mt-0.5">${c.legalName || ""} ${c.market ? `• Praça: ${c.market}` : ""}</p>
+            <p class="text-xs text-slate-400 mt-1">Resp. Comercial: ${c.responsible} • Meta Go-Live: ${c.goLiveTarget}</p>
+            ${c.email ? `<p class="text-xs text-slate-500 mt-0.5">${c.email} • ${c.phone || ""}</p>` : ""}
           </div>
           <button onclick="closeDrawer()" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer">✕</button>
         </div>
@@ -488,7 +578,7 @@
     }
 
     function resetDemo() {
-      localStorage.removeItem("client_onboarding_html_v3");
+      localStorage.removeItem("client_onboarding_html_v4");
       clients = JSON.parse(JSON.stringify(INITIAL_CLIENTS));
       closeDrawer();
       render();
